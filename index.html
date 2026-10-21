@@ -36,15 +36,13 @@
             border-radius: 24px;
             padding: 15px;
             box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
-            position: relative;
-            padding-bottom: 75px;
         }
-        /* الهيدر: اسم الجروب في المنتصف تماماً وبدون أعلام */
+        /* الهيدر */
         .header {
             text-align: center;
             border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-            padding-bottom: 12px;
-            margin-bottom: 12px;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
         }
         .group-title-main {
             font-size: 15px;
@@ -57,42 +55,81 @@
             font-size: 13px;
             font-weight: 700;
             color: var(--text-white);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             border-bottom: 1px dashed rgba(212, 175, 55, 0.3);
-            padding-bottom: 8px;
+            padding-bottom: 6px;
         }
-        /* كل عملة في سطر واحد مستقل وشيق */
+
+        /* جدول الأسعار الاحترافي (عناوين الشراء والبيع مرة واحدة فوق) */
+        .rates-table-container {
+            background: var(--card-bg);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+        .table-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 8px 8px 8px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+        .header-prices {
+            display: flex;
+            gap: 25px;
+            text-align: center;
+            width: 130px;
+            justify-content: flex-end;
+        }
         .rates-list {
             display: flex;
             flex-direction: column;
             gap: 6px;
-            margin-bottom: 15px;
+            margin-top: 8px;
         }
-        .rate-line {
-            background: var(--card-bg);
-            border: 1px solid rgba(212, 175, 55, 0.25);
-            border-radius: 8px;
-            padding: 8px 12px;
+        .rate-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 6px 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 6px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
         }
         .curr-left {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
-        .flag { font-size: 20px; }
+        .flag { font-size: 18px; }
         .c-name { font-size: 12px; font-weight: 700; color: #fff; }
         .c-code { font-size: 10px; color: var(--text-muted); }
         
         .curr-right {
             display: flex;
-            gap: 15px;
+            gap: 25px;
             text-align: center;
+            width: 130px;
+            justify-content: flex-end;
         }
-        .p-box span { display: block; font-size: 9px; color: var(--text-muted); }
-        .p-box strong { font-size: 12px; color: var(--border-gold); }
+        .p-val { font-size: 12px; font-weight: 700; color: var(--border-gold); width: 50px; text-align: center; }
+
+        /* شريط وقت التحديث قبل محول العملات مباشرة */
+        .update-time-box {
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 8px;
+            padding: 6px;
+            text-align: center;
+            font-size: 10px;
+            color: var(--text-gold);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
 
         /* محول العملات */
         .converter-section {
@@ -100,7 +137,7 @@
             border: 1px solid var(--border-gold);
             border-radius: 12px;
             padding: 12px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         .converter-title {
             font-size: 12px;
@@ -142,12 +179,12 @@
             border-radius: 6px;
             font-size: 13px;
         }
-        /* الفوتر بالتصميم المطلوب */
+
+        /* الفوتر */
         .footer-custom {
             text-align: center;
             border-top: 1px solid rgba(212, 175, 55, 0.3);
-            padding-top: 10px;
-            margin-top: 10px;
+            padding-top: 8px;
         }
         .footer-group-name {
             font-size: 12px;
@@ -161,54 +198,37 @@
             font-weight: 600;
             letter-spacing: 0.5px;
         }
-        .footer-timestamp {
-            font-size: 9px;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
-
-        /* شريط التنقل السفلي */
-        .bottom-nav {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #080c14;
-            border-top: 1px solid rgba(212, 175, 55, 0.3);
-            display: flex;
-            justify-content: space-around;
-            padding: 8px 0;
-            border-bottom-left-radius: 22px;
-            border-bottom-right-radius: 22px;
-        }
-        .nav-item {
-            text-align: center;
-            font-size: 10px;
-            color: var(--text-muted);
-            cursor: pointer;
-        }
-        .nav-item.active {
-            color: var(--border-gold);
-            font-weight: 700;
-        }
     </style>
 </head>
 <body>
 
 <div class="phone-container">
-    <!-- الهيدر: اسم الجروب في المنتصف بدون أعلام -->
+    <!-- الهيدر -->
     <div class="header">
         <div class="group-title-main">جروب عملاء البنوك المصرية</div>
     </div>
 
-    <!-- العنوان المطلوب -->
     <div class="banner-text">
         سعر صرف الجنيه المصري
     </div>
 
-    <!-- قائمة الأسعار: كل عملة في سطر مستقل -->
-    <div class="rates-list" id="ratesList">
-        <div style="text-align: center; color: var(--text-muted); padding: 15px;">جاري تحميل الأسعار...</div>
+    <!-- جدول الأسعار المدمج (الشراء والبيع مرة واحدة في الأعلى) -->
+    <div class="rates-table-container">
+        <div class="table-header-row">
+            <span>العملة</span>
+            <div class="header-prices">
+                <span>شراء</span>
+                <span>بيع</span>
+            </div>
+        </div>
+        <div class="rates-list" id="ratesList">
+            <div style="text-align: center; color: var(--text-muted); padding: 10px; font-size: 11px;">جاري تحميل الأسعار...</div>
+        </div>
+    </div>
+
+    <!-- وقت التحديث قبل محول العملات مباشرة -->
+    <div class="update-time-box" id="updateTimeBox">
+        Market Status: <span style="color: var(--accent-green);">OPEN</span> | جاري تحميل وقت التحديث...
     </div>
 
     <!-- محول العملات -->
@@ -233,19 +253,10 @@
         </div>
     </div>
 
-    <!-- الفوتر المطلوب بالظبط -->
+    <!-- الفوتر المطلوب -->
     <div class="footer-custom">
         <div class="footer-group-name">جروب عملاء البنوك المصرية 🛡️</div>
         <div class="footer-dev">Developed by Tarek Metwally</div>
-        <div class="footer-timestamp" id="footerTimestamp">Market Status: OPEN | جاري تحديث الوقت...</div>
-    </div>
-
-    <!-- شريط التنقل السفلي -->
-    <div class="bottom-nav">
-        <div class="nav-item active">🏠<br>Home</div>
-        <div class="nav-item">💱<br>Converter</div>
-        <div class="nav-item">📈<br>Rates</div>
-        <div class="nav-item">👤<br>Profile</div>
     </div>
 </div>
 
@@ -264,7 +275,6 @@
             const response = await fetch(apiURL);
             const data = await response.json();
             
-            // تصفية العملات التي لها أسعار صالحة
             globalData = data.filter(item => item.buy > 0 && item.sell > 0);
             
             let listHTML = '';
@@ -273,9 +283,8 @@
             globalData.forEach(item => {
                 let flag = flags[item.code] || "💵";
                 
-                // كل عملة في سطر مستقل
                 listHTML += `
-                    <div class="rate-line">
+                    <div class="rate-row">
                         <div class="curr-left">
                             <div class="flag">${flag}</div>
                             <div>
@@ -284,14 +293,8 @@
                             </div>
                         </div>
                         <div class="curr-right">
-                            <div class="p-box">
-                               <span>شراء</span>
-                               <strong>${item.buy}</strong>
-                            </div>
-                            <div class="p-box">
-                               <span>بيع</span>
-                               <strong>${item.sell}</strong>
-                            </div>
+                            <div class="p-val">${item.buy}</div>
+                            <div class="p-val">${item.sell}</div>
                         </div>
                     </div>
                 `;
@@ -308,12 +311,12 @@
             }
 
             if(data.length > 0 && data[0].updated) {
-                document.getElementById('footerTimestamp').innerHTML = `Market Status: <span style="color: var(--accent-green);">OPEN</span> | آخر تحديث: ${data[0].updated}`;
+                document.getElementById('updateTimeBox').innerHTML = `Market Status: <span style="color: var(--accent-green);">OPEN</span> | آخر تحديث: ${data[0].updated}`;
             }
 
             convertCurrency();
         } catch (error) {
-            document.getElementById('ratesList').innerHTML = '<div style="text-align:center; color:#ef4444;">تعذر تحميل البيانات.</div>';
+            document.getElementById('ratesList').innerHTML = '<div style="text-align:center; color:#ef4444; font-size:11px;">تعذر تحميل البيانات.</div>';
         }
     }
 
