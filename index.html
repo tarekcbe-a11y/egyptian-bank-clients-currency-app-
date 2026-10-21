@@ -78,7 +78,6 @@
             color: var(--text-muted);
             font-weight: 700;
         }
-        /* ضبط محاذاة العناوين لتكون فوق الأرقام مباشرة */
         .header-prices {
             display: flex;
             gap: 15px;
@@ -275,10 +274,15 @@
             let listHTML = '';
             let optionsHTML = '';
 
+            // إضافة الجنيه المصري أولاً لقوائم المحول (بقيمة بيع وشراء 1 كمرجع)
+            let conversionOptionsList = [
+                { currency: "الجنيه المصري", code: "EGP", buy: 1, sell: 1 },
+                ...globalData
+            ];
+
             globalData.forEach(item => {
                 let flag = flags[item.code] || "💵";
                 
-                // تم إزالة الأكواد الإنجليزية والإبقاء على الاسم العربي فقط
                 listHTML += `
                     <div class="rate-row">
                         <div class="curr-left">
@@ -291,14 +295,20 @@
                         </div>
                     </div>
                 `;
+            });
 
-                optionsHTML += `<option value="${item.sell}" data-code="${item.code}">${item.currency} (${item.code})</option>`;
+            // تعبئة القوائم المنسدلة للمحول بما فيها الجنيه المصري
+            conversionOptionsList.forEach(item => {
+                let flag = flags[item.code] || "💵";
+                optionsHTML += `<option value="${item.sell}" data-code="${item.code}">${flag} ${item.currency}</option>`;
             });
 
             document.getElementById('ratesList').innerHTML = listHTML;
             document.getElementById('fromCurrency').innerHTML = optionsHTML;
             document.getElementById('targetCurrency').innerHTML = optionsHTML;
 
+            // جعل الافتراضي: من الجنيه المصري (أول عنصر) إلى الدولار أو العملة التالية
+            document.getElementById('fromCurrency').selectedIndex = 0;
             if(document.getElementById('targetCurrency').options.length > 1) {
                 document.getElementById('targetCurrency').selectedIndex = 1;
             }
@@ -323,6 +333,7 @@
         
         const codeTarget = targetSelect.options[targetSelect.selectedIndex]?.getAttribute('data-code') || '';
         
+        // حساب التحويل بدقة بين أي عملتين
         let result = ((amount * rateFrom) / rateTarget).toFixed(2);
         
         document.getElementById('conversionResult').innerText = `النتيجة: ${result} ${codeTarget}`;
