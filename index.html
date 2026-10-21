@@ -282,7 +282,7 @@
             globalData.forEach(item => {
                 let flag = flags[item.code] || "💵";
                 
-                // تم عكس قيم الشراء والبيع هنا لتتوافق مع المنطق المصرفي الصحيح لكل العملات
+                // هنا الشراء ياخد (sell) والبيع ياخد (buy) للتمشي مع التبديل اللي تم من المصدر
                 listHTML += `
                     <div class="rate-row">
                         <div class="curr-left">
@@ -297,9 +297,10 @@
                 `;
             });
 
+            // ضبط المحول ليأخذ القيمة الأكبر (item.buy) لسعر البيع الفعلي بعد التبديل
             conversionOptionsList.forEach(item => {
                 let flag = flags[item.code] || "💵";
-                optionsHTML += `<option value="${item.sell}" data-code="${item.code}">${flag} ${item.currency}</option>`;
+                optionsHTML += `<option value="${item.buy}" data-code="${item.code}">${flag} ${item.currency}</option>`;
             });
 
             document.getElementById('ratesList').innerHTML = listHTML;
