@@ -24,132 +24,125 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-white);
-            padding: 15px;
+            padding: 10px;
             display: flex;
             justify-content: center;
         }
         .phone-container {
             width: 100%;
-            max-width: 420px;
+            max-width: 400px;
             background: var(--bg-color);
             border: 2px solid var(--border-gold);
             border-radius: 24px;
-            padding: 20px;
+            padding: 15px;
             box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
+            position: relative;
+            padding-bottom: 60px;
         }
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border-gold);
-            padding-bottom: 12px;
-            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 10px;
+            margin-bottom: 10px;
         }
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         .logo-box {
             background: linear-gradient(135deg, #d4af37, #aa7c11);
             color: #000;
             font-weight: 900;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 16px;
-            letter-spacing: 1px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 14px;
         }
         .group-title {
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 700;
             color: var(--text-gold);
         }
-        .sub-header {
+        .banner-text {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            padding: 6px;
             text-align: center;
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 15px;
+            font-size: 11px;
+            color: var(--text-gold);
+            margin-bottom: 10px;
         }
-        .rates-list {
+        .rates-table {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 6px;
+            margin-bottom: 15px;
         }
-        .rate-card {
+        .rate-row {
             background: var(--card-bg);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            border-radius: 12px;
-            padding: 12px 15px;
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 8px;
+            padding: 8px 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .currency-info {
+        .curr-left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
         }
-        .currency-flag {
-            font-size: 24px;
-        }
-        .currency-name {
-            font-weight: 700;
-            font-size: 14px;
-            color: var(--text-white);
-        }
-        .currency-code {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-        .prices-info {
+        .flag { font-size: 18px; }
+        .c-name { font-size: 12px; font-weight: 700; color: #fff; }
+        .c-code { font-size: 10px; color: var(--text-muted); }
+        
+        .curr-right {
             display: flex;
-            gap: 15px;
-            text-align: left;
+            gap: 12px;
+            text-align: center;
         }
-        .price-box .label {
-            font-size: 10px;
-            color: var(--text-muted);
-            display: block;
-        }
-        .price-box .val {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--border-gold);
-        }
+        .p-box span { display: block; font-size: 9px; color: var(--text-muted); }
+        .p-box strong { font-size: 12px; color: var(--border-gold); }
+
         .converter-section {
             background: var(--card-bg);
             border: 1px solid var(--border-gold);
-            border-radius: 14px;
-            padding: 15px;
-            margin-bottom: 20px;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 15px;
         }
         .converter-title {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--border-gold);
             font-weight: 700;
-            margin-bottom: 10px;
             text-align: center;
+            margin-bottom: 8px;
             border-bottom: 1px dashed rgba(212, 175, 55, 0.3);
-            padding-bottom: 6px;
+            padding-bottom: 4px;
         }
-        .input-group {
-            margin-bottom: 10px;
+        .conv-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 8px;
         }
         .input-group label {
-            font-size: 11px;
+            font-size: 10px;
             color: var(--text-muted);
             display: block;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
         .input-group input, .input-group select {
             width: 100%;
             background: #0b0f19;
-            border: 1px solid rgba(212, 175, 55, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.4);
             color: #fff;
-            padding: 8px 10px;
-            border-radius: 8px;
-            font-size: 13px;
+            padding: 6px;
+            border-radius: 6px;
+            font-size: 11px;
             outline: none;
         }
         .result-box {
@@ -157,17 +150,38 @@
             color: #000;
             font-weight: 700;
             text-align: center;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 15px;
-            margin-top: 10px;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 13px;
         }
-        .footer-info {
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #080c14;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            border-bottom-left-radius: 22px;
+            border-bottom-right-radius: 22px;
+        }
+        .nav-item {
             text-align: center;
-            font-size: 11px;
+            font-size: 10px;
             color: var(--text-muted);
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-            padding-top: 10px;
+            cursor: pointer;
+        }
+        .nav-item.active {
+            color: var(--border-gold);
+            font-weight: 700;
+        }
+        .footer-status {
+            text-align: center;
+            font-size: 9px;
+            color: var(--text-muted);
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -179,52 +193,59 @@
             <div class="logo-box">EG</div>
             <div class="group-title">جروب عملاء البنوك المصرية</div>
         </div>
-        <div style="font-size: 18px;">🇪🇬 🇦🇪</div>
+        <div style="font-size: 16px;">🇪🇬 🇰🇼</div>
     </div>
 
-    <div class="sub-header" id="updateStatus">جاري تحديث الأسعار اللحظية...</div>
-
-    <!-- قائمة الأسعار المسحوبة من جدول البيانات -->
-    <div class="rates-list" id="ratesList">
-        <div style="text-align: center; color: var(--text-muted); padding: 20px;">جاري تحميل البيانات...</div>
+    <div class="banner-text">
+        تطبيق أسعار العملات الحية - بإشراف المستشار المالي (طارق متولي)
     </div>
 
-    <!-- قسم محول العملات -->
+    <!-- جدول الأسعار المدمج -->
+    <div class="rates-table" id="ratesTable">
+        <div style="text-align: center; color: var(--text-muted); padding: 15px;">جاري تحميل الأسعار...</div>
+    </div>
+
+    <!-- محول العملات -->
     <div class="converter-section">
-        <div class="converter-title">تحويل العملات | CURRENCY CONVERTER</div>
-        <div class="input-group">
-            <label>المبلغ (EGP)</label>
+        <div class="converter-title">محول العملات | CURRENCY CONVERTER</div>
+        <div class="input-group" style="margin-bottom: 8px;">
+            <label>المبلغ المراد تحويله</label>
             <input type="number" id="amountInput" value="1000" oninput="convertCurrency()">
         </div>
-        <div class="input-group">
-            <label>تحويل إلى العملة</label>
-            <select id="targetCurrency" onchange="convertCurrency()">
-                <!-- تملأ أوتوماتيكياً -->
-            </select>
+        <div class="conv-grid">
+            <div class="input-group">
+                <label>من العملة</label>
+                <select id="fromCurrency" onchange="convertCurrency()"></select>
+            </div>
+            <div class="input-group">
+                <label>إلى العملة</label>
+                <select id="targetCurrency" onchange="convertCurrency()"></select>
+            </div>
         </div>
         <div class="result-box" id="conversionResult">
             النتيجة: --
         </div>
     </div>
 
-    <div class="footer-info">
-        Market Status: <span style="color: var(--accent-green);">OPEN</span> | #جروب_عملاء_البنوك_المصرية
+    <div class="footer-status" id="footerTimestamp">
+        Market Status: <span style="color: var(--accent-green);">OPEN</span> | جاري تحميل وقت التحديث...
+    </div>
+
+    <!-- شريط التنقل السفلي -->
+    <div class="bottom-nav">
+        <div class="nav-item active">🏠<br>Home</div>
+        <div class="nav-item">💱<br>Converter</div>
+        <div class="nav-item">📈<br>Rates</div>
+        <div class="nav-item">👤<br>Profile</div>
     </div>
 </div>
 
 <script>
-    // رابط تطبيق الويب الخاص بجدول البيانات
     const apiURL = "https://script.google.com/macros/s/AKfycbzCRaR2BMwF5krfzHbW0tsMPvBOTEaTOiPMVGrPBr8o4PgKDu5Ht9embE_AD1c-b8Wg/exec";
 
-    // علم افتراضي حسب كود العملة
     const flags = {
-        "USD": "🇺🇸",
-        "EUR": "🇪🇺",
-        "GBP": "🇬🇧",
-        "SAR": "🇸🇦",
-        "AED": "🇦🇪",
-        "KWD": "🇰🇼",
-        "EGP": "🇪🇬"
+        "USD": "🇺🇸", "EUR": "🇪🇺", "GBP": "🇬🇧",
+        "SAR": "🇸🇦", "AED": "🇦🇪", "KWD": "🇰🇼", "EGP": "🇪🇬"
     };
 
     let globalData = [];
@@ -233,68 +254,79 @@
         try {
             const response = await fetch(apiURL);
             const data = await response.json();
-            globalData = data;
             
-            let listHTML = '';
-            let selectHTML = '';
+            // تصفية العملات التي ليس لها أسعار أو التي تساوي صفر
+            globalData = data.filter(item => item.buy > 0 && item.sell > 0);
+            
+            let tableHTML = '';
+            let optionsHTML = '';
 
-            data.forEach(item => {
+            globalData.forEach(item => {
                 let flag = flags[item.code] || "💵";
-                // كارت السعر
-                listHTML += `
-                    <div class="rate-card">
-                        <div class="currency-info">
-                            <div class="currency-flag">${flag}</div>
+                
+                // صف الجدول المدمج
+                tableHTML += `
+                    <div class="rate-row">
+                        <div class="curr-left">
+                            <div class="flag">${flag}</div>
                             <div>
-                                <div class="currency-name">${item.currency}</div>
-                                <div class="currency-code">${item.code}</div>
+                                <div class="c-name">${item.currency}</div>
+                                <div class="c-code">${item.code}</div>
                             </div>
                         </div>
-                        <div class="prices-info">
-                            <div class="price-box">
-                                <span class="label">شراء</span>
-                                <span class="val">${item.buy}</span>
+                        <div class="curr-right">
+                            <div class="p-box">
+                               <span>شراء</span>
+                               <strong>${item.buy}</strong>
                             </div>
-                            <div class="price-box">
-                                <span class="label">بيع</span>
-                                <span class="val">${item.sell}</span>
+                            <div class="p-box">
+                               <span>بيع</span>
+                               <strong>${item.sell}</strong>
                             </div>
                         </div>
                     </div>
                 `;
 
-                // خيارات محول العملات (باستثناء الجنيه المصري الأساسي لو حبيت أو حسب الرغبة)
-                if(item.code !== 'EGP') {
-                    selectHTML += `<option value="${item.sell}">${item.currency} (${item.code})</option>`;
-                }
+                // خيارات المحول
+                optionsHTML += `<option value="${item.sell}" data-code="${item.code}">${item.currency} (${item.code})</option>`;
             });
 
-            document.getElementById('ratesList').innerHTML = listHTML;
-            document.getElementById('targetCurrency').innerHTML = selectHTML;
-            
+            document.getElementById('ratesTable').innerHTML = tableHTML;
+            document.getElementById('fromCurrency').innerHTML = optionsHTML;
+            document.getElementById('targetCurrency').innerHTML = optionsHTML;
+
+            // تحديد خيارات مختلفة للمحول افتراضياً لو متاحة
+            if(document.getElementById('targetCurrency').options.length > 1) {
+                document.getElementById('targetCurrency').selectedIndex = 1;
+            }
+
             if(data.length > 0 && data[0].updated) {
-                document.getElementById('updateStatus').innerText = `آخر تحديث: ${data[0].updated}`;
+                document.getElementById('footerTimestamp').innerHTML = `Market Status: <span style="color: var(--accent-green);">OPEN</span> | آخر تحديث: ${data[0].updated}`;
             }
 
             convertCurrency();
         } catch (error) {
-            document.getElementById('ratesList').innerHTML = '<div style="text-align:center; color:#ef4444;">تعذر تحميل البيانات، تأكد من الاتصال.</div>';
+            document.getElementById('ratesTable').innerHTML = '<div style="text-align:center; color:#ef4444;">تعذر تحميل البيانات.</div>';
         }
     }
 
     function convertCurrency() {
         const amount = parseFloat(document.getElementById('amountInput').value) || 0;
-        const selectElement = document.getElementById('targetCurrency');
-        const rate = parseFloat(selectElement.value) || 1;
+        const fromSelect = document.getElementById('fromCurrency');
+        const targetSelect = document.getElementById('targetCurrency');
         
-        // حساب التحويل (مقسوم على سعر البيع مثلاً أو العكس حسب الرغبة)
-        const result = (amount / rate).toFixed(2);
-        const selectedText = selectElement.options[selectElement.selectedIndex]?.text || '';
+        const rateFrom = parseFloat(fromSelect.value) || 1;
+        const rateTarget = parseFloat(targetSelect.value) || 1;
         
-        document.getElementById('conversionResult').innerText = `النتيجة: ${result} (${selectedText.split(' ')[0]})`;
+        const codeFrom = fromSelect.options[fromSelect.selectedIndex]?.getAttribute('data-code') || '';
+        const codeTarget = targetSelect.options[targetSelect.selectedIndex]?.getAttribute('data-code') || '';
+        
+        // التحويل المباشر بين العملات المتاحة
+        let result = ((amount * rateFrom) / rateTarget).toFixed(2);
+        
+        document.getElementById('conversionResult').innerText = `النتيجة: ${result} ${codeTarget}`;
     }
 
-    // جلب البيانات عند فتح الصفحة وتحديثها كل دقيقة
     fetchRates();
     setInterval(fetchRates, 60000);
 </script>
