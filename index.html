@@ -282,7 +282,7 @@
             globalData.forEach(item => {
                 let flag = flags[item.code] || "💵";
                 
-                // الترتيب الصحيح: عرض سعر الشراء تحت عمود الشراء وسعر البيع تحت عمود البيع بالدقة المطلوبة
+                // تم عكس قيم الشراء والبيع هنا لتتوافق مع المنطق المصرفي الصحيح لكل العملات
                 listHTML += `
                     <div class="rate-row">
                         <div class="curr-left">
@@ -290,8 +290,8 @@
                             <div class="c-name">${item.currency}</div>
                         </div>
                         <div class="curr-right">
-                            <div class="p-val">${item.buy}</div>
                             <div class="p-val">${item.sell}</div>
+                            <div class="p-val">${item.buy}</div>
                         </div>
                     </div>
                 `;
