@@ -3,222 +3,301 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أسعار العملات - جروب عملاء البنوك المصرية</title>
+    <title>#جروب_عملاء_البنوك_المصرية - أسعار العملات اللحظية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #070d1d;
-            --card-bg: #101935;
-            --gold: #d4af37;
-            --gold-light: #f3e5ab;
-            --text-main: #ffffff;
-            --text-muted: #a0aec0;
-            --border-gold: rgba(212, 175, 55, 0.3);
+            --bg-color: #0b0f19;
+            --card-bg: #131b2e;
+            --border-gold: #d4af37;
+            --text-gold: #f3e5ab;
+            --text-white: #ffffff;
+            --text-muted: #94a3b8;
+            --accent-green: #10b981;
         }
-
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Cairo', sans-serif;
         }
-
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            min-height: 100vh;
-            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-white);
+            padding: 15px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: center;
         }
-
-        .container {
+        .phone-container {
             width: 100%;
-            max-width: 480px;
+            max-width: 420px;
+            background: var(--bg-color);
+            border: 2px solid var(--border-gold);
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
         }
-
-        header {
-            text-align: center;
-            margin-bottom: 25px;
-            border-bottom: 2px solid var(--gold);
-            padding-bottom: 15px;
-        }
-
-        header h1 {
-            color: var(--gold-light);
-            font-size: 1.4rem;
-            margin-bottom: 5px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        }
-
-        header p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .update-time {
-            text-align: center;
-            font-size: 0.85rem;
-            color: var(--gold);
-            margin-bottom: 15px;
-            background: rgba(212, 175, 55, 0.1);
-            padding: 8px;
-            border-radius: 8px;
-            border: 1px solid var(--border-gold);
-        }
-
-        .rates-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .rate-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-gold);
-            border-radius: 12px;
-            padding: 15px 20px;
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            transition: transform 0.2s ease;
+            border-bottom: 1px solid var(--border-gold);
+            padding-bottom: 12px;
+            margin-bottom: 15px;
         }
-
-        .rate-card:hover {
-            transform: translateY(-2px);
-            border-color: var(--gold);
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-
-        .currency-info {
+        .logo-box {
+            background: linear-gradient(135deg, #d4af37, #aa7c11);
+            color: #000;
+            font-weight: 900;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+        .group-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-gold);
+        }
+        .sub-header {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+        .rates-list {
             display: flex;
             flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
         }
-
+        .rate-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 12px;
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .currency-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .currency-flag {
+            font-size: 24px;
+        }
         .currency-name {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: var(--text-main);
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--text-white);
         }
-
         .currency-code {
-            font-size: 0.8rem;
+            font-size: 11px;
             color: var(--text-muted);
         }
-
-        .currency-prices {
+        .prices-info {
             display: flex;
             gap: 15px;
             text-align: left;
         }
-
-        .price-box {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .price-label {
-            font-size: 0.75rem;
+        .price-box .label {
+            font-size: 10px;
             color: var(--text-muted);
+            display: block;
         }
-
-        .price-value {
-            font-size: 1.05rem;
-            font-weight: bold;
-            color: var(--gold);
+        .price-box .val {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--border-gold);
         }
-
-        .loading {
+        .converter-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-gold);
+            border-radius: 14px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .converter-title {
+            font-size: 13px;
+            color: var(--border-gold);
+            font-weight: 700;
+            margin-bottom: 10px;
             text-align: center;
-            color: var(--gold-light);
-            padding: 40px;
-            font-size: 1.1rem;
+            border-bottom: 1px dashed rgba(212, 175, 55, 0.3);
+            padding-bottom: 6px;
         }
-
-        footer {
-            margin-top: 30px;
-            text-align: center;
-            font-size: 0.8rem;
+        .input-group {
+            margin-bottom: 10px;
+        }
+        .input-group label {
+            font-size: 11px;
             color: var(--text-muted);
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 15px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .input-group input, .input-group select {
             width: 100%;
+            background: #0b0f19;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            color: #fff;
+            padding: 8px 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            outline: none;
+        }
+        .result-box {
+            background: linear-gradient(135deg, #d4af37, #aa7c11);
+            color: #000;
+            font-weight: 700;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 15px;
+            margin-top: 10px;
+        }
+        .footer-info {
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            padding-top: 10px;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1>#جروب_عملاء_البنوك_المصرية</h1>
-            <p>أسعار العملات اللحظية</p>
-        </header>
-
-        <div id="updateTime" class="update-time" style="display: none;"></div>
-
-        <div id="ratesContainer" class="rates-list">
-            <div class="loading">جاري تحميل الأسعار... ⏳</div>
+<div class="phone-container">
+    <div class="header">
+        <div class="logo-area">
+            <div class="logo-box">EG</div>
+            <div class="group-title">جروب عملاء البنوك المصرية</div>
         </div>
-
-        <footer>
-            جميع الحقوق محفوظة © جروب عملاء البنوك المصرية
-        </footer>
+        <div style="font-size: 18px;">🇪🇬 🇦🇪</div>
     </div>
 
-    <script>
-        // رابط الـ Web App الخاص بك الذي تم استخراجه
-        const API_URL = "https://script.google.com/macros/s/AKfycbzCRaR2BMwF5krfzHbW0tsMPvBOTEaTOiPMVGrPBr8o4PgKDu5Ht9embE_AD1c-b8Wg/exec";
+    <div class="sub-header" id="updateStatus">جاري تحديث الأسعار اللحظية...</div>
 
-        async function fetchRates() {
-            try {
-                const response = await fetch(API_URL);
-                const data = await response.json();
-                
-                const container = document.getElementById('ratesContainer');
-                const timeDiv = document.getElementById('updateTime');
-                container.innerHTML = '';
+    <!-- قائمة الأسعار المسحوبة من جدول البيانات -->
+    <div class="rates-list" id="ratesList">
+        <div style="text-align: center; color: var(--text-muted); padding: 20px;">جاري تحميل البيانات...</div>
+    </div>
 
-                if (data && data.length > 0) {
-                    // افتراض أن آخر صف أو أول صف يحمل وقت التحديث إن وجد، أو نعرض البيانات المباشرة
-                    data.forEach(item => {
-                        const card = document.createElement('div');
-                        card.className = 'rate-card';
-                        
-                        card.innerHTML = `
-                            <div class="currency-info">
-                                <span class="currency-name">${item.currency || item.العملة || 'عملة'}</span>
-                                <span class="currency-code">${item.code || ''}</span>
+    <!-- قسم محول العملات -->
+    <div class="converter-section">
+        <div class="converter-title">تحويل العملات | CURRENCY CONVERTER</div>
+        <div class="input-group">
+            <label>المبلغ (EGP)</label>
+            <input type="number" id="amountInput" value="1000" oninput="convertCurrency()">
+        </div>
+        <div class="input-group">
+            <label>تحويل إلى العملة</label>
+            <select id="targetCurrency" onchange="convertCurrency()">
+                <!-- تملأ أوتوماتيكياً -->
+            </select>
+        </div>
+        <div class="result-box" id="conversionResult">
+            النتيجة: --
+        </div>
+    </div>
+
+    <div class="footer-info">
+        Market Status: <span style="color: var(--accent-green);">OPEN</span> | #جروب_عملاء_البنوك_المصرية
+    </div>
+</div>
+
+<script>
+    // رابط تطبيق الويب الخاص بجدول البيانات
+    const apiURL = "https://script.google.com/macros/s/AKfycbzCRaR2BMwF5krfzHbW0tsMPvBOTEaTOiPMVGrPBr8o4PgKDu5Ht9embE_AD1c-b8Wg/exec";
+
+    // علم افتراضي حسب كود العملة
+    const flags = {
+        "USD": "🇺🇸",
+        "EUR": "🇪🇺",
+        "GBP": "🇬🇧",
+        "SAR": "🇸🇦",
+        "AED": "🇦🇪",
+        "KWD": "🇰🇼",
+        "EGP": "🇪🇬"
+    };
+
+    let globalData = [];
+
+    async function fetchRates() {
+        try {
+            const response = await fetch(apiURL);
+            const data = await response.json();
+            globalData = data;
+            
+            let listHTML = '';
+            let selectHTML = '';
+
+            data.forEach(item => {
+                let flag = flags[item.code] || "💵";
+                // كارت السعر
+                listHTML += `
+                    <div class="rate-card">
+                        <div class="currency-info">
+                            <div class="currency-flag">${flag}</div>
+                            <div>
+                                <div class="currency-name">${item.currency}</div>
+                                <div class="currency-code">${item.code}</div>
                             </div>
-                            <div class="currency-prices">
-                                <div class="price-box">
-                                    <span class="price-label">شراء</span>
-                                    <span class="price-value">${item.buy || item.الشراء || '---'}</span>
-                                </div>
-                                <div class="price-box">
-                                    <span class="price-label">بيع</span>
-                                    <span class="price-value">${item.sell || item.البيع || '---'}</span>
-                                </div>
+                        </div>
+                        <div class="prices-info">
+                            <div class="price-box">
+                                <span class="label">شراء</span>
+                                <span class="val">${item.buy}</span>
                             </div>
-                        `;
-                        container.appendChild(card);
-                    });
+                            <div class="price-box">
+                                <span class="label">بيع</span>
+                                <span class="val">${item.sell}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
 
-                    timeDiv.style.display = 'block';
-                    timeDiv.innerText = `آخر تحديث: ${new Date().toLocaleTimeString('ar-EG')}`;
-                } else {
-                    container.innerHTML = '<div class="loading">لا توجد بيانات متاحة حالياً.</div>';
+                // خيارات محول العملات (باستثناء الجنيه المصري الأساسي لو حبيت أو حسب الرغبة)
+                if(item.code !== 'EGP') {
+                    selectHTML += `<option value="${item.sell}">${item.currency} (${item.code})</option>`;
                 }
-            } catch (error) {
-                console.error("خطأ في جلب البيانات:", error);
-                document.getElementById('ratesContainer').innerHTML = '<div class="loading" style="color: #ff6b6b;">عذراً، حدث خطأ أثناء تحميل الأسعار.</div>';
+            });
+
+            document.getElementById('ratesList').innerHTML = listHTML;
+            document.getElementById('targetCurrency').innerHTML = selectHTML;
+            
+            if(data.length > 0 && data[0].updated) {
+                document.getElementById('updateStatus').innerText = `آخر تحديث: ${data[0].updated}`;
             }
+
+            convertCurrency();
+        } catch (error) {
+            document.getElementById('ratesList').innerHTML = '<div style="text-align:center; color:#ef4444;">تعذر تحميل البيانات، تأكد من الاتصال.</div>';
         }
+    }
 
-        // جلب البيانات فور فتح الصفحة
-        fetchRates();
+    function convertCurrency() {
+        const amount = parseFloat(document.getElementById('amountInput').value) || 0;
+        const selectElement = document.getElementById('targetCurrency');
+        const rate = parseFloat(selectElement.value) || 1;
+        
+        // حساب التحويل (مقسوم على سعر البيع مثلاً أو العكس حسب الرغبة)
+        const result = (amount / rate).toFixed(2);
+        const selectedText = selectElement.options[selectElement.selectedIndex]?.text || '';
+        
+        document.getElementById('conversionResult').innerText = `النتيجة: ${result} (${selectedText.split(' ')[0]})`;
+    }
 
-        // تحديث تلقائي كل 60 ثانية
-        setInterval(fetchRates, 60000);
-    </script>
+    // جلب البيانات عند فتح الصفحة وتحديثها كل دقيقة
+    fetchRates();
+    setInterval(fetchRates, 60000);
+</script>
+
 </body>
 </html>
