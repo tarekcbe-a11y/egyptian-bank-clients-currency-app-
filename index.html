@@ -37,55 +37,42 @@
             padding: 15px;
             box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
             position: relative;
-            padding-bottom: 60px;
+            padding-bottom: 75px;
         }
+        /* الهيدر: اسم الجروب في المنتصف تماماً وبدون أعلام */
         .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            text-align: center;
             border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-            padding-bottom: 10px;
-            margin-bottom: 10px;
+            padding-bottom: 12px;
+            margin-bottom: 12px;
         }
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .logo-box {
-            background: linear-gradient(135deg, #d4af37, #aa7c11);
-            color: #000;
+        .group-title-main {
+            font-size: 15px;
             font-weight: 900;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 14px;
-        }
-        .group-title {
-            font-size: 12px;
-            font-weight: 700;
             color: var(--text-gold);
+            letter-spacing: 0.5px;
         }
         .banner-text {
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 8px;
-            padding: 6px;
             text-align: center;
-            font-size: 11px;
-            color: var(--text-gold);
-            margin-bottom: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 12px;
+            border-bottom: 1px dashed rgba(212, 175, 55, 0.3);
+            padding-bottom: 8px;
         }
-        .rates-table {
+        /* كل عملة في سطر واحد مستقل وشيق */
+        .rates-list {
             display: flex;
             flex-direction: column;
             gap: 6px;
             margin-bottom: 15px;
         }
-        .rate-row {
+        .rate-line {
             background: var(--card-bg);
             border: 1px solid rgba(212, 175, 55, 0.25);
             border-radius: 8px;
-            padding: 8px 10px;
+            padding: 8px 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -93,20 +80,21 @@
         .curr-left {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
-        .flag { font-size: 18px; }
+        .flag { font-size: 20px; }
         .c-name { font-size: 12px; font-weight: 700; color: #fff; }
         .c-code { font-size: 10px; color: var(--text-muted); }
         
         .curr-right {
             display: flex;
-            gap: 12px;
+            gap: 15px;
             text-align: center;
         }
         .p-box span { display: block; font-size: 9px; color: var(--text-muted); }
         .p-box strong { font-size: 12px; color: var(--border-gold); }
 
+        /* محول العملات */
         .converter-section {
             background: var(--card-bg);
             border: 1px solid var(--border-gold);
@@ -154,6 +142,32 @@
             border-radius: 6px;
             font-size: 13px;
         }
+        /* الفوتر بالتصميم المطلوب */
+        .footer-custom {
+            text-align: center;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        .footer-group-name {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-gold);
+            margin-bottom: 2px;
+        }
+        .footer-dev {
+            font-size: 11px;
+            color: var(--text-gold);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .footer-timestamp {
+            font-size: 9px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* شريط التنقل السفلي */
         .bottom-nav {
             position: absolute;
             bottom: 0;
@@ -177,31 +191,23 @@
             color: var(--border-gold);
             font-weight: 700;
         }
-        .footer-status {
-            text-align: center;
-            font-size: 9px;
-            color: var(--text-muted);
-            margin-top: 5px;
-        }
     </style>
 </head>
 <body>
 
 <div class="phone-container">
+    <!-- الهيدر: اسم الجروب في المنتصف بدون أعلام -->
     <div class="header">
-        <div class="logo-area">
-            <div class="logo-box">EG</div>
-            <div class="group-title">جروب عملاء البنوك المصرية</div>
-        </div>
-        <div style="font-size: 16px;">🇪🇬 🇰🇼</div>
+        <div class="group-title-main">جروب عملاء البنوك المصرية</div>
     </div>
 
+    <!-- العنوان المطلوب -->
     <div class="banner-text">
-        تطبيق أسعار العملات الحية - بإشراف المستشار المالي (طارق متولي)
+        سعر صرف الجنيه المصري
     </div>
 
-    <!-- جدول الأسعار المدمج -->
-    <div class="rates-table" id="ratesTable">
+    <!-- قائمة الأسعار: كل عملة في سطر مستقل -->
+    <div class="rates-list" id="ratesList">
         <div style="text-align: center; color: var(--text-muted); padding: 15px;">جاري تحميل الأسعار...</div>
     </div>
 
@@ -227,8 +233,11 @@
         </div>
     </div>
 
-    <div class="footer-status" id="footerTimestamp">
-        Market Status: <span style="color: var(--accent-green);">OPEN</span> | جاري تحميل وقت التحديث...
+    <!-- الفوتر المطلوب بالظبط -->
+    <div class="footer-custom">
+        <div class="footer-group-name">جروب عملاء البنوك المصرية 🛡️</div>
+        <div class="footer-dev">Developed by Tarek Metwally</div>
+        <div class="footer-timestamp" id="footerTimestamp">Market Status: OPEN | جاري تحديث الوقت...</div>
     </div>
 
     <!-- شريط التنقل السفلي -->
@@ -255,18 +264,18 @@
             const response = await fetch(apiURL);
             const data = await response.json();
             
-            // تصفية العملات التي ليس لها أسعار أو التي تساوي صفر
+            // تصفية العملات التي لها أسعار صالحة
             globalData = data.filter(item => item.buy > 0 && item.sell > 0);
             
-            let tableHTML = '';
+            let listHTML = '';
             let optionsHTML = '';
 
             globalData.forEach(item => {
                 let flag = flags[item.code] || "💵";
                 
-                // صف الجدول المدمج
-                tableHTML += `
-                    <div class="rate-row">
+                // كل عملة في سطر مستقل
+                listHTML += `
+                    <div class="rate-line">
                         <div class="curr-left">
                             <div class="flag">${flag}</div>
                             <div>
@@ -287,15 +296,13 @@
                     </div>
                 `;
 
-                // خيارات المحول
                 optionsHTML += `<option value="${item.sell}" data-code="${item.code}">${item.currency} (${item.code})</option>`;
             });
 
-            document.getElementById('ratesTable').innerHTML = tableHTML;
+            document.getElementById('ratesList').innerHTML = listHTML;
             document.getElementById('fromCurrency').innerHTML = optionsHTML;
             document.getElementById('targetCurrency').innerHTML = optionsHTML;
 
-            // تحديد خيارات مختلفة للمحول افتراضياً لو متاحة
             if(document.getElementById('targetCurrency').options.length > 1) {
                 document.getElementById('targetCurrency').selectedIndex = 1;
             }
@@ -306,7 +313,7 @@
 
             convertCurrency();
         } catch (error) {
-            document.getElementById('ratesTable').innerHTML = '<div style="text-align:center; color:#ef4444;">تعذر تحميل البيانات.</div>';
+            document.getElementById('ratesList').innerHTML = '<div style="text-align:center; color:#ef4444;">تعذر تحميل البيانات.</div>';
         }
     }
 
@@ -318,10 +325,8 @@
         const rateFrom = parseFloat(fromSelect.value) || 1;
         const rateTarget = parseFloat(targetSelect.value) || 1;
         
-        const codeFrom = fromSelect.options[fromSelect.selectedIndex]?.getAttribute('data-code') || '';
         const codeTarget = targetSelect.options[targetSelect.selectedIndex]?.getAttribute('data-code') || '';
         
-        // التحويل المباشر بين العملات المتاحة
         let result = ((amount * rateFrom) / rateTarget).toFixed(2);
         
         document.getElementById('conversionResult').innerText = `النتيجة: ${result} ${codeTarget}`;
