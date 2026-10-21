@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أسعار العملات - جروب عملاء البنوك المصرية</title>
+    <style>
+        :root {
+            --bg-dark: #070d1d;
+            --card-bg: #101935;
+            --gold: #d4af37;
+            --gold-light: #f3e5ab;
+            --text-main: #ffffff;
+            --text-muted: #a0aec0;
+            --border-gold: rgba(212, 175, 55, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 15px;
+        }
+
+        header h1 {
+            color: var(--gold-light);
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .update-time {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+            background: rgba(212, 175, 55, 0.1);
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid var(--border-gold);
+        }
+
+        .rates-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .rate-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-gold);
+            border-radius: 12px;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .rate-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--gold);
+        }
+
+        .currency-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .currency-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--text-main);
+        }
+
+        .currency-code {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .currency-prices {
+            display: flex;
+            gap: 15px;
+            text-align: left;
+        }
+
+        .price-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .price-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .price-value {
+            font-size: 1.05rem;
+            font-weight: bold;
+            color: var(--gold);
+        }
+
+        .loading {
+            text-align: center;
+            color: var(--gold-light);
+            padding: 40px;
+            font-size: 1.1rem;
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 15px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>#جروب_عملاء_البنوك_المصرية</h1>
+            <p>أسعار العملات اللحظية</p>
+        </header>
+
+        <div id="updateTime" class="update-time" style="display: none;"></div>
+
+        <div id="ratesContainer" class="rates-list">
+            <div class="loading">جاري تحميل الأسعار... ⏳</div>
+        </div>
+
+        <footer>
+            جميع الحقوق محفوظة © جروب عملاء البنوك المصرية
+        </footer>
+    </div>
+
+    <script>
+        // رابط الـ Web App الخاص بك الذي تم استخراجه
+        const API_URL = "https://script.google.com/macros/s/AKfycbzCRaR2BMwF5krfzHbW0tsMPvBOTEaTOiPMVGrPBr8o4PgKDu5Ht9embE_AD1c-b8Wg/exec";
+
+        async function fetchRates() {
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                
+                const container = document.getElementById('ratesContainer');
+                const timeDiv = document.getElementById('updateTime');
+                container.innerHTML = '';
+
+                if (data && data.length > 0) {
+                    // افتراض أن آخر صف أو أول صف يحمل وقت التحديث إن وجد، أو نعرض البيانات المباشرة
+                    data.forEach(item => {
+                        const card = document.createElement('div');
+                        card.className = 'rate-card';
+                        
+                        card.innerHTML = `
+                            <div class="currency-info">
+                                <span class="currency-name">${item.currency || item.العملة || 'عملة'}</span>
+                                <span class="currency-code">${item.code || ''}</span>
+                            </div>
+                            <div class="currency-prices">
+                                <div class="price-box">
+                                    <span class="price-label">شراء</span>
+                                    <span class="price-value">${item.buy || item.الشراء || '---'}</span>
+                                </div>
+                                <div class="price-box">
+                                    <span class="price-label">بيع</span>
+                                    <span class="price-value">${item.sell || item.البيع || '---'}</span>
+                                </div>
+                            </div>
+                        `;
+                        container.appendChild(card);
+                    });
+
+                    timeDiv.style.display = 'block';
+                    timeDiv.innerText = `آخر تحديث: ${new Date().toLocaleTimeString('ar-EG')}`;
+                } else {
+                    container.innerHTML = '<div class="loading">لا توجد بيانات متاحة حالياً.</div>';
+                }
+            } catch (error) {
+                console.error("خطأ في جلب البيانات:", error);
+                document.getElementById('ratesContainer').innerHTML = '<div class="loading" style="color: #ff6b6b;">عذراً، حدث خطأ أثناء تحميل الأسعار.</div>';
+            }
+        }
+
+        // جلب البيانات فور فتح الصفحة
+        fetchRates();
+
+        // تحديث تلقائي كل 60 ثانية
+        setInterval(fetchRates, 60000);
+    </script>
+</body>
+</html>
