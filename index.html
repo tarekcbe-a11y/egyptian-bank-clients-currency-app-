@@ -274,7 +274,6 @@
             let listHTML = '';
             let optionsHTML = '';
 
-            // إضافة الجنيه المصري أولاً لقوائم المحول (بقيمة بيع وشراء 1 كمرجع)
             let conversionOptionsList = [
                 { currency: "الجنيه المصري", code: "EGP", buy: 1, sell: 1 },
                 ...globalData
@@ -283,6 +282,7 @@
             globalData.forEach(item => {
                 let flag = flags[item.code] || "💵";
                 
+                // الترتيب الصحيح: عرض سعر الشراء تحت عمود الشراء وسعر البيع تحت عمود البيع بالدقة المطلوبة
                 listHTML += `
                     <div class="rate-row">
                         <div class="curr-left">
@@ -297,7 +297,6 @@
                 `;
             });
 
-            // تعبئة القوائم المنسدلة للمحول بما فيها الجنيه المصري
             conversionOptionsList.forEach(item => {
                 let flag = flags[item.code] || "💵";
                 optionsHTML += `<option value="${item.sell}" data-code="${item.code}">${flag} ${item.currency}</option>`;
@@ -307,7 +306,6 @@
             document.getElementById('fromCurrency').innerHTML = optionsHTML;
             document.getElementById('targetCurrency').innerHTML = optionsHTML;
 
-            // جعل الافتراضي: من الجنيه المصري (أول عنصر) إلى الدولار أو العملة التالية
             document.getElementById('fromCurrency').selectedIndex = 0;
             if(document.getElementById('targetCurrency').options.length > 1) {
                 document.getElementById('targetCurrency').selectedIndex = 1;
@@ -333,7 +331,6 @@
         
         const codeTarget = targetSelect.options[targetSelect.selectedIndex]?.getAttribute('data-code') || '';
         
-        // حساب التحويل بدقة بين أي عملتين
         let result = ((amount * rateFrom) / rateTarget).toFixed(2);
         
         document.getElementById('conversionResult').innerText = `النتيجة: ${result} ${codeTarget}`;
