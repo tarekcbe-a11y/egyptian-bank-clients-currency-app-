@@ -60,7 +60,7 @@
             padding-bottom: 6px;
         }
 
-        /* جدول الأسعار الاحترافي (عناوين الشراء والبيع مرة واحدة فوق) */
+        /* جدول الأسعار النظيف والمضغوط */
         .rates-table-container {
             background: var(--card-bg);
             border: 1px solid rgba(212, 175, 55, 0.3);
@@ -78,12 +78,13 @@
             color: var(--text-muted);
             font-weight: 700;
         }
+        /* ضبط محاذاة العناوين لتكون فوق الأرقام مباشرة */
         .header-prices {
             display: flex;
-            gap: 25px;
+            gap: 15px;
             text-align: center;
             width: 130px;
-            justify-content: flex-end;
+            justify-content: space-around;
         }
         .rates-list {
             display: flex;
@@ -107,18 +108,17 @@
         }
         .flag { font-size: 18px; }
         .c-name { font-size: 12px; font-weight: 700; color: #fff; }
-        .c-code { font-size: 10px; color: var(--text-muted); }
         
         .curr-right {
             display: flex;
-            gap: 25px;
+            gap: 15px;
             text-align: center;
             width: 130px;
-            justify-content: flex-end;
+            justify-content: space-around;
         }
         .p-val { font-size: 12px; font-weight: 700; color: var(--border-gold); width: 50px; text-align: center; }
 
-        /* شريط وقت التحديث قبل محول العملات مباشرة */
+        /* شريط وقت التحديث */
         .update-time-box {
             background: rgba(212, 175, 55, 0.08);
             border: 1px solid rgba(212, 175, 55, 0.25);
@@ -203,7 +203,6 @@
 <body>
 
 <div class="phone-container">
-    <!-- الهيدر -->
     <div class="header">
         <div class="group-title-main">جروب عملاء البنوك المصرية</div>
     </div>
@@ -212,7 +211,6 @@
         سعر صرف الجنيه المصري
     </div>
 
-    <!-- جدول الأسعار المدمج (الشراء والبيع مرة واحدة في الأعلى) -->
     <div class="rates-table-container">
         <div class="table-header-row">
             <span>العملة</span>
@@ -226,12 +224,10 @@
         </div>
     </div>
 
-    <!-- وقت التحديث قبل محول العملات مباشرة -->
     <div class="update-time-box" id="updateTimeBox">
         Market Status: <span style="color: var(--accent-green);">OPEN</span> | جاري تحميل وقت التحديث...
     </div>
 
-    <!-- محول العملات -->
     <div class="converter-section">
         <div class="converter-title">محول العملات | CURRENCY CONVERTER</div>
         <div class="input-group" style="margin-bottom: 8px;">
@@ -253,7 +249,6 @@
         </div>
     </div>
 
-    <!-- الفوتر المطلوب -->
     <div class="footer-custom">
         <div class="footer-group-name">جروب عملاء البنوك المصرية 🛡️</div>
         <div class="footer-dev">Developed by Tarek Metwally</div>
@@ -283,14 +278,12 @@
             globalData.forEach(item => {
                 let flag = flags[item.code] || "💵";
                 
+                // تم إزالة الأكواد الإنجليزية والإبقاء على الاسم العربي فقط
                 listHTML += `
                     <div class="rate-row">
                         <div class="curr-left">
                             <div class="flag">${flag}</div>
-                            <div>
-                                <div class="c-name">${item.currency}</div>
-                                <div class="c-code">${item.code}</div>
-                            </div>
+                            <div class="c-name">${item.currency}</div>
                         </div>
                         <div class="curr-right">
                             <div class="p-val">${item.buy}</div>
