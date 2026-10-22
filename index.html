@@ -276,19 +276,18 @@
 <script>
     const apiURL = "https://script.google.com/macros/s/AKfycbzCRaR2BMwF5krfzHbW0tsMPvBOTEaTOiPMVGrPBr8o4PgKDu5Ht9embE_AD1c-b8Wg/exec";
 
-    // خريطة الأعلام الثابتة والمؤكدة بنسبة 100% حسب الكود المعتمد لكل عملة
-    const fixedFlags = {
-        "USD": "🇺🇸",
-        "EUR": "🇪🇺",
-        "GBP": "🇬🇧",
-        "SAR": "🇸🇦",
-        "AED": "🇦🇪",
-        "EGP": "🇪🇬"
-    };
-
-    function getAccurateFlag(code) {
-        const cleanCode = (code || "").toUpperCase().trim();
-        return fixedFlags[cleanCode] || "💵";
+    // دالة فحص نصية صارمة تربط اسم العملة بالعلم الصحيح تماماً بدون أي احتمال للخطأ
+    function getFlagByName(currencyName) {
+        const name = (currencyName || "").trim();
+        
+        if (name.includes("سعود") || name.includes("ريال")) return "🇸🇦"; // علم السعودية حصرياً
+        if (name.includes("إسترليني") || name.includes("استرلينى") || name.includes("استرليني")) return "🇬🇧"; // علم بريطانيا حصرياً
+        if (name.includes("دولار")) return "🇺🇸"; // علم أمريكا حصرياً
+        if (name.includes("يورو")) return "🇪🇺"; // علم اليورو حصرياً
+        if (name.includes("إمارات") || name.includes("امارات") || name.includes("درهم")) return "🇦🇪"; // علم الإمارات حصرياً
+        if (name.includes("مصري")) return "🇪🇬"; // علم مصر حصرياً
+        
+        return "💵";
     }
 
     function displayDate() {
@@ -302,10 +301,10 @@
             const response = await fetch(apiURL);
             const data = await response.json();
             
-            // استبعاد الدينار الكويتي KWD والأي بيانات غير مقصودة
+            // استبعاد الدينار الكويتي KWD تماماً
             const filteredData = data.filter(item => {
-                const code = (item.code || "").toUpperCase();
-                return item.buy > 0 && item.sell > 0 && code !== "KWD";
+                const name = (item.currency || "");
+                return item.buy > 0 && item.sell > 0 && !name.includes("دينار");
             });
             
             let listHTML = '';
@@ -317,7 +316,7 @@
             ];
 
             filteredData.forEach(item => {
-                let flag = getAccurateFlag(item.code);
+                let flag = getFlagByName(item.currency);
                 
                 listHTML += `
                     <div class="rate-row">
@@ -334,7 +333,7 @@
             });
 
             conversionOptionsList.forEach(item => {
-                let flag = getAccurateFlag(item.code);
+                let flag = getFlagByName(item.currency);
                 optionsHTML += `<option value="${item.buy}" data-code="${item.code}">${flag} ${item.currency}</option>`;
             });
 
@@ -343,8 +342,8 @@
             document.getElementById('targetCurrency').innerHTML = optionsHTML;
 
             // ضبط المحول ليبدأ من (الدولار الأمريكي) إلى (الجنيه المصري)
-            const usdIndex = conversionOptionsList.findIndex(item => (item.code || "").toUpperCase() === "USD");
-            const egpIndex = conversionOptionsList.findIndex(item => (item.code || "").toUpperCase() === "EGP");
+            const usdIndex = conversionOptionsList.findIndex(item => (item.currency || "").includes("دولار"));
+            const egpIndex = conversionOptionsList.findIndex(item => (item.currency || "").includes("مصري"));
 
             if(usdIndex !== -1) document.getElementById('fromCurrency').selectedIndex = usdIndex;
             if(egpIndex !== -1) document.getElementById('targetCurrency').selectedIndex = egpIndex;
