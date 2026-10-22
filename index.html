@@ -128,7 +128,7 @@
             font-weight: 600;
         }
 
-        /* زر/شريط التحديث اللحظي المباشر */
+        /* زر التحديث اليدوي */
         .refresh-btn-bar {
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(170, 124, 17, 0.25));
             border: 1px solid var(--border-gold);
@@ -242,7 +242,6 @@
         Market Status: <span style="color: var(--accent-green);">OPEN</span> | جاري تحميل الوقت...
     </div>
 
-    <!-- شريط التحديث اليدوي المضاف -->
     <div class="refresh-btn-bar" onclick="fetchRates()">
         <span>🔄 اضغط لتحديث الأسعار الآن</span>
     </div>
@@ -277,17 +276,33 @@
 <script>
     const apiURL = "https://script.google.com/macros/s/AKfycbzCRaR2BMwF5krfzHbW0tsMPvBOTEaTOiPMVGrPBr8o4PgKDu5Ht9embE_AD1c-b8Wg/exec";
 
-    // تصحيح الأعلام بدقة كاملة
-    const flags = {
-        "USD": "🇺🇸", 
-        "EUR": "🇪🇺", 
+    // خريطة الأعلام الدقيقة والصريحة لكل أكواد الأسماء والرموز
+    const flagsMap = {
+        "USD": "🇺🇸",
+        "EUR": "🇪🇺",
         "GBP": "🇬🇧",
-        "SAR": "🇸🇦", 
-        "AED": "🇦🇪", 
+        "SAR": "🇸🇦",
+        "AED": "🇦🇪",
         "EGP": "🇪🇬"
     };
 
-    let globalData = [];
+    function getFlag(code, name) {
+        if (!code && !name) return "💵";
+        const cleanCode = (code || "").toUpperCase().trim();
+        const cleanName = (name || "").trim();
+
+        if (flagsMap[cleanCode]) return flagsMap[cleanCode];
+
+        // التحقق النصي لضمان الدقة الكاملة
+        if (cleanName.includes("سعود") || cleanName.includes("ريال") || cleanCode.includes("SAR")) return "🇸🇦";
+        if (cleanName.includes("إسترلين") || cleanName.includes("استرلين") || cleanName.includes("جنيه إسترليني") || cleanCode.includes("GBP")) return "🇬🇧";
+        if (cleanName.includes("دولار") || cleanCode.includes("USD")) return "🇺🇸";
+        if (cleanName.includes("يورو") || cleanCode.includes("EUR")) return "🇪🇺";
+        if (cleanName.includes("إمارات") || cleanName.includes("امارات") || cleanName.includes("درهم") || cleanCode.includes("AED")) return "🇦🇪";
+        if (cleanName.includes("مصري") || cleanCode.includes("EGP")) return "🇪🇬";
+
+        return "💵";
+    }
 
     function displayDate() {
         const now = new Date();
@@ -300,18 +315,23 @@
             const response = await fetch(apiURL);
             const data = await response.json();
             
-            globalData = data.filter(item => item.buy > 0 && item.sell > 0 && item.code !== "KWD");
+            // استبعاد الكويتي KWD نهائياً بدون التأثير على الشيت
+            const filteredData = data.filter(item => {
+                const code = (item.code || "").toUpperCase();
+                const name = (item.currency || "");
+                return item.buy > 0 && item.sell > 0 && code !== "KWD" && !name.includes("دينار");
+            });
             
             let listHTML = '';
             let optionsHTML = '';
 
             let conversionOptionsList = [
                 { currency: "الجنيه المصري", code: "EGP", buy: 1, sell: 1 },
-                ...globalData
+                ...filteredData
             ];
 
-            globalData.forEach(item => {
-                let flag = flags[item.code] || "💵";
+            filteredData.forEach(item => {
+                let flag = getFlag(item.code, item.currency);
                 
                 listHTML += `
                     <div class="rate-row">
@@ -328,7 +348,7 @@
             });
 
             conversionOptionsList.forEach(item => {
-                let flag = flags[item.code] || "💵";
+                let flag = getFlag(item.code, item.currency);
                 optionsHTML += `<option value="${item.buy}" data-code="${item.code}">${flag} ${item.currency}</option>`;
             });
 
@@ -336,16 +356,12 @@
             document.getElementById('fromCurrency').innerHTML = optionsHTML;
             document.getElementById('targetCurrency').innerHTML = optionsHTML;
 
-            // ضبط المحول ليصبح (من: الدولار الأمريكي) إلى (إلى: الجنيه المصري)
-            const usdIndex = conversionOptionsList.findIndex(item => item.code === "USD");
-            const egpIndex = conversionOptionsList.findIndex(item => item.code === "EGP");
+            // ضبط المحول ليصبح من (الدولار الأمريكي) إلى (الجنيه المصري)
+            const usdIndex = conversionOptionsList.findIndex(item => (item.code || "").toUpperCase() === "USD" || (item.currency || "").includes("دولار"));
+            const egpIndex = conversionOptionsList.findIndex(item => (item.code || "").toUpperCase() === "EGP" || (item.currency || "").includes("مصري"));
 
-            if(usdIndex !== -1) {
-                document.getElementById('fromCurrency').selectedIndex = usdIndex;
-            }
-            if(egpIndex !== -1) {
-                document.getElementById('targetCurrency').selectedIndex = egpIndex;
-            }
+            if(usdIndex !== -1) document.getElementById('fromCurrency').selectedIndex = usdIndex;
+            if(egpIndex !== -1) document.getElementById('targetCurrency').selectedIndex = egpIndex;
 
             if(data.length > 0 && data[0].updated) {
                 document.getElementById('updateTimeBox').innerHTML = `Market Status: <span style="color: var(--accent-green);">OPEN</span> | آخر تحديث: ${data[0].updated}`;
