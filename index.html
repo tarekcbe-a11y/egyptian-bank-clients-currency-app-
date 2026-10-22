@@ -276,8 +276,8 @@
 <script>
     const apiURL = "https://script.google.com/macros/s/AKfycbzCRaR2BMwF5krfzHbW0tsMPvBOTEaTOiPMVGrPBr8o4PgKDu5Ht9embE_AD1c-b8Wg/exec";
 
-    // خريطة الأعلام الدقيقة والصريحة لكل أكواد الأسماء والرموز
-    const flagsMap = {
+    // خريطة الأعلام الثابتة والمؤكدة بنسبة 100% حسب الكود المعتمد لكل عملة
+    const fixedFlags = {
         "USD": "🇺🇸",
         "EUR": "🇪🇺",
         "GBP": "🇬🇧",
@@ -286,22 +286,9 @@
         "EGP": "🇪🇬"
     };
 
-    function getFlag(code, name) {
-        if (!code && !name) return "💵";
+    function getAccurateFlag(code) {
         const cleanCode = (code || "").toUpperCase().trim();
-        const cleanName = (name || "").trim();
-
-        if (flagsMap[cleanCode]) return flagsMap[cleanCode];
-
-        // التحقق النصي لضمان الدقة الكاملة
-        if (cleanName.includes("سعود") || cleanName.includes("ريال") || cleanCode.includes("SAR")) return "🇸🇦";
-        if (cleanName.includes("إسترلين") || cleanName.includes("استرلين") || cleanName.includes("جنيه إسترليني") || cleanCode.includes("GBP")) return "🇬🇧";
-        if (cleanName.includes("دولار") || cleanCode.includes("USD")) return "🇺🇸";
-        if (cleanName.includes("يورو") || cleanCode.includes("EUR")) return "🇪🇺";
-        if (cleanName.includes("إمارات") || cleanName.includes("امارات") || cleanName.includes("درهم") || cleanCode.includes("AED")) return "🇦🇪";
-        if (cleanName.includes("مصري") || cleanCode.includes("EGP")) return "🇪🇬";
-
-        return "💵";
+        return fixedFlags[cleanCode] || "💵";
     }
 
     function displayDate() {
@@ -315,11 +302,10 @@
             const response = await fetch(apiURL);
             const data = await response.json();
             
-            // استبعاد الكويتي KWD نهائياً بدون التأثير على الشيت
+            // استبعاد الدينار الكويتي KWD والأي بيانات غير مقصودة
             const filteredData = data.filter(item => {
                 const code = (item.code || "").toUpperCase();
-                const name = (item.currency || "");
-                return item.buy > 0 && item.sell > 0 && code !== "KWD" && !name.includes("دينار");
+                return item.buy > 0 && item.sell > 0 && code !== "KWD";
             });
             
             let listHTML = '';
@@ -331,7 +317,7 @@
             ];
 
             filteredData.forEach(item => {
-                let flag = getFlag(item.code, item.currency);
+                let flag = getAccurateFlag(item.code);
                 
                 listHTML += `
                     <div class="rate-row">
@@ -348,7 +334,7 @@
             });
 
             conversionOptionsList.forEach(item => {
-                let flag = getFlag(item.code, item.currency);
+                let flag = getAccurateFlag(item.code);
                 optionsHTML += `<option value="${item.buy}" data-code="${item.code}">${flag} ${item.currency}</option>`;
             });
 
@@ -356,9 +342,9 @@
             document.getElementById('fromCurrency').innerHTML = optionsHTML;
             document.getElementById('targetCurrency').innerHTML = optionsHTML;
 
-            // ضبط المحول ليصبح من (الدولار الأمريكي) إلى (الجنيه المصري)
-            const usdIndex = conversionOptionsList.findIndex(item => (item.code || "").toUpperCase() === "USD" || (item.currency || "").includes("دولار"));
-            const egpIndex = conversionOptionsList.findIndex(item => (item.code || "").toUpperCase() === "EGP" || (item.currency || "").includes("مصري"));
+            // ضبط المحول ليبدأ من (الدولار الأمريكي) إلى (الجنيه المصري)
+            const usdIndex = conversionOptionsList.findIndex(item => (item.code || "").toUpperCase() === "USD");
+            const egpIndex = conversionOptionsList.findIndex(item => (item.code || "").toUpperCase() === "EGP");
 
             if(usdIndex !== -1) document.getElementById('fromCurrency').selectedIndex = usdIndex;
             if(egpIndex !== -1) document.getElementById('targetCurrency').selectedIndex = egpIndex;
