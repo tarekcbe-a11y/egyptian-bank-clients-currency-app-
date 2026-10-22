@@ -276,16 +276,17 @@
 <script>
     const apiURL = "https://script.google.com/macros/s/AKfycbzCRaR2BMwF5krfzHbW0tsMPvBOTEaTOiPMVGrPBr8o4PgKDu5Ht9embE_AD1c-b8Wg/exec";
 
-    // دالة فحص نصية صارمة تربط اسم العملة بالعلم الصحيح تماماً بدون أي احتمال للخطأ
+    // دالة الفحص النصية الصارمة لربط كل عملة بعلمها الصحيح 100%
     function getFlagByName(currencyName) {
         const name = (currencyName || "").trim();
         
-        if (name.includes("سعود") || name.includes("ريال")) return "🇸🇦"; // علم السعودية حصرياً
-        if (name.includes("إسترليني") || name.includes("استرلينى") || name.includes("استرليني")) return "🇬🇧"; // علم بريطانيا حصرياً
-        if (name.includes("دولار")) return "🇺🇸"; // علم أمريكا حصرياً
-        if (name.includes("يورو")) return "🇪🇺"; // علم اليورو حصرياً
-        if (name.includes("إمارات") || name.includes("امارات") || name.includes("درهم")) return "🇦🇪"; // علم الإمارات حصرياً
-        if (name.includes("مصري")) return "🇪🇬"; // علم مصر حصرياً
+        if (name.includes("سعود") || name.includes("ريال")) return "🇸🇦"; // السعودية
+        if (name.includes("إسترليني") || name.includes("استرلينى") || name.includes("استرليني")) return "🇬🇧"; // بريطانيا
+        if (name.includes("دولار")) return "🇺🇸"; // أمريكا
+        if (name.includes("يورو")) return "🇪🇺"; // اليورو
+        if (name.includes("إمارات") || name.includes("امارات") || name.includes("درهم")) return "🇦🇪"; // الإمارات
+        if (name.includes("كويت") || name.includes("دينار")) return "🇰🇼"; // الكويت (الدينار الكويتي)
+        if (name.includes("مصري")) return "🇪🇬"; // مصر
         
         return "💵";
     }
@@ -301,11 +302,8 @@
             const response = await fetch(apiURL);
             const data = await response.json();
             
-            // استبعاد الدينار الكويتي KWD تماماً
-            const filteredData = data.filter(item => {
-                const name = (item.currency || "");
-                return item.buy > 0 && item.sell > 0 && !name.includes("دينار");
-            });
+            // جلب كل العملات بما فيها الدينار الكويتي (KWD) طالما بياناتها سليمة
+            const filteredData = data.filter(item => item.buy > 0 && item.sell > 0);
             
             let listHTML = '';
             let optionsHTML = '';
